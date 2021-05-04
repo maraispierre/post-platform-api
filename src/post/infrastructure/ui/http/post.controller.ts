@@ -1,5 +1,5 @@
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Post, Get, UseGuards } from '@nestjs/common';
 import { PublishPostRequest } from './publish-post.request';
 import { PublishPostCommand } from '../../../application/commands/publish-post.command';
 import { Post as PostObject } from '../../../domain/post';
@@ -24,7 +24,7 @@ export class PostController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Post('display')
+  @Get('display')
   public async display(): Promise<PostObject[]> {
     return await this.queryBus.execute(new DisplayPostsQuery());
   }
