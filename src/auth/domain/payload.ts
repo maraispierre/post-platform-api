@@ -1,7 +1,3 @@
 export class Payload {
-  public readonly email: string;
-
-  constructor(email: string) {
-    this.email = email;
-  }
+  constructor(public readonly email: string) {}
 }

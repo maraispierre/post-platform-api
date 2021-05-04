@@ -14,3 +14,8 @@ model User {
   email String  @unique
   password  String
 }
+
+model Post {
+  id        Int      @default(autoincrement()) @id
+  content   String
+}

@@ -1,9 +1,9 @@
 import { NestFactory } from '@nestjs/core';
-import { AuthModule } from './auth/auth.module';
+import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AuthModule);
+  const app = await NestFactory.create(AppModule);
   app.enableCors();
   app.useGlobalPipes(new ValidationPipe());
   await app.listen(3000);

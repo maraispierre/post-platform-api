@@ -1,7 +1,7 @@
 import { UserRepository } from '../../../domain/user.repository';
 import { User } from '../../../domain/user';
 import { Injectable } from '@nestjs/common';
-import { PrismaProvider } from './prisma-provider';
+import { PrismaProvider } from '../../../../shared/infrastructure/persistence/prisma/prisma-provider';
 import { UserNotFoundException } from '../../../domain/exceptions/user-not-found.exception';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
 import { PrismaErrorCode } from './prisma-error.code';
@@ -13,7 +13,7 @@ export class PrismaUserRepository implements UserRepository {
 
   async create(user: User): Promise<User> {
     try {
-      await this.prismaProvider.user.create({
+      this.prismaProvider.user.create({
         data: {
           email: user.email,
           password: user.password,
