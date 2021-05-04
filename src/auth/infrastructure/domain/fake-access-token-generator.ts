@@ -6,6 +6,6 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class FakeAccessTokenGenerator implements AccessTokenGenerator {
   generate(payload: Payload): AccessToken {
-    return new AccessToken('');
+    return new AccessToken(payload.email);
   }
 }

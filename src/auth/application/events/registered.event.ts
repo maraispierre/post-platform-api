@@ -1,9 +1,9 @@
-import { Profile } from '../../domain/profile';
+import { AccessToken } from '../../domain/access-token';
 
 export class RegisteredEvent {
-  public readonly profile: Profile;
+  public readonly accessToken: AccessToken;
 
-  constructor(profile: Profile) {
-    this.profile = profile;
+  constructor(accessToken: AccessToken) {
+    this.accessToken = accessToken;
   }
 }

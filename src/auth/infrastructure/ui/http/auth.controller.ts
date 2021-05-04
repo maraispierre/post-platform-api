@@ -8,12 +8,12 @@ import {
 } from '@nestjs/common';
 import { RegisterRequest } from './register.request';
 import { RegisterCommand } from '../../../application/commands/register.command';
-import { Profile } from '../../../domain/profile';
 import { LoginCommand } from '../../../application/commands/login.command';
 import { LoginRequest } from './login.request';
 import { BadLoginException } from '../../../domain/exceptions/bad-login.exception';
 import { UserNotFoundException } from '../../../domain/exceptions/user-not-found.exception';
 import { UserAlreadyExistsException } from '../../../domain/exceptions/user-already-exists.exception';
+import { AccessToken } from '../../../domain/access-token';
 
 @Controller('auth')
 export class AuthController {
@@ -22,7 +22,7 @@ export class AuthController {
   @Post('register')
   public async register(
     @Body() registerRequest: RegisterRequest,
-  ): Promise<Profile> {
+  ): Promise<AccessToken> {
     try {
       return await this.commandBus.execute(
         new RegisterCommand(registerRequest.email, registerRequest.password),
@@ -35,7 +35,7 @@ export class AuthController {
   }
 
   @Post('login')
-  public async login(@Body() loginRequest: LoginRequest): Promise<Profile> {
+  public async login(@Body() loginRequest: LoginRequest): Promise<AccessToken> {
     try {
       return await this.commandBus.execute(
         new LoginCommand(loginRequest.email, loginRequest.password),
