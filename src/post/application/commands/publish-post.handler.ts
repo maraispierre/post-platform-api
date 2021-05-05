@@ -4,6 +4,7 @@ import { PostPublishedEvent } from '../events/post-published.event';
 import { Post } from '../../domain/post';
 import { Inject } from '@nestjs/common';
 import { PostRepository } from '../../domain/post.repository';
+import { Author } from '../../domain/author';
 
 @CommandHandler(PublishPostCommand)
 export class PublishPostHandler implements ICommandHandler<PublishPostCommand> {
@@ -14,7 +15,7 @@ export class PublishPostHandler implements ICommandHandler<PublishPostCommand> {
   ) {}
 
   async execute(command: PublishPostCommand): Promise<Post> {
-    const post = new Post(command.content);
+    const post = new Post(command.content, new Author(command.authorId));
 
     await this.repository.create(post);
     this.eventBus.publish(new PostPublishedEvent(post));

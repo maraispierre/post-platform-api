@@ -7,6 +7,7 @@ import {
   UseGuards,
   Param,
   Query,
+  Request,
 } from '@nestjs/common';
 import { PublishPostRequest } from './publish-post.request';
 import { PublishPostCommand } from '../../../application/commands/publish-post.command';
@@ -26,9 +27,10 @@ export class PostController {
   @Post('publish')
   public async publish(
     @Body() publishPostRequest: PublishPostRequest,
+    @Request() request,
   ): Promise<PostObject> {
     return await this.commandBus.execute(
-      new PublishPostCommand(publishPostRequest.content),
+      new PublishPostCommand(publishPostRequest.content, request.user.email),
     );
   }
 

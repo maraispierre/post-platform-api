@@ -1,3 +1,6 @@
+import { Author } from './author';
+
 export class Post {
-  constructor(public readonly content) {}
+  public readonly id: number | null = undefined;
+  constructor(public readonly content, public readonly author: Author) {}
 }

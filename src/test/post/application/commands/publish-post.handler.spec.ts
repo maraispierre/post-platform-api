@@ -5,9 +5,12 @@ import { PostRepository } from '../../../../post/domain/post.repository';
 import { FakePostRepository } from '../../../../post/infrastructure/persistence/fake-post.repository';
 import { Post } from '../../../../post/domain/post';
 import { PublishPostCommand } from '../../../../post/application/commands/publish-post.command';
+import { Author } from '../../../../post/domain/author';
 
 describe('PublishPost', () => {
   const CONTENT = 'content';
+  const EMAIL = 'test@test.fr';
+  const AUTHOR = new Author(EMAIL);
 
   let commandBus: CommandBus;
   let moduleRef: ModuleRef;
@@ -27,11 +30,12 @@ describe('PublishPost', () => {
       jest.spyOn(eventBus, 'publish').mockImplementation(async () => null);
       jest
         .spyOn(postRepository, 'create')
-        .mockImplementation(async () => new Post(CONTENT));
+        .mockImplementation(async () => new Post(CONTENT, AUTHOR));
 
-      const command = new PublishPostCommand(CONTENT);
+      const command = new PublishPostCommand(CONTENT, EMAIL);
       const post = await publishPostHandler.execute(command);
       expect(post.content).toEqual(CONTENT);
+      expect(post.author.email).toEqual(EMAIL);
     });
   });
 });
