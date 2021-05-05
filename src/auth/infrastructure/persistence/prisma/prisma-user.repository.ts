@@ -13,7 +13,7 @@ export class PrismaUserRepository implements UserRepository {
 
   async create(user: User): Promise<User> {
     try {
-      this.prismaProvider.user.create({
+      await this.prismaProvider.user.create({
         data: {
           email: user.email,
           password: user.password,

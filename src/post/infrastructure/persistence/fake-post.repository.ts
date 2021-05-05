@@ -6,7 +6,7 @@ export class FakePostRepository implements PostRepository {
     return post;
   }
 
-  async findAll(): Promise<Post[]> {
+  async findMany(page: number, cursor: number | null): Promise<Post[]> {
     return [];
   }
 }

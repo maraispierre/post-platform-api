@@ -12,6 +12,6 @@ export class DisplayPostsHandler implements IQueryHandler<DisplayPostsQuery> {
   ) {}
 
   async execute(query: DisplayPostsQuery): Promise<Post[]> {
-    return await this.repository.findAll();
+    return await this.repository.findMany(query.page, query.cursor);
   }
 }

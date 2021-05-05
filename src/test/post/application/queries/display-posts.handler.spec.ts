@@ -14,10 +14,10 @@ describe('DisplayPosts', () => {
 
   describe('execute', () => {
     it('should return Post[]', async () => {
-      jest.spyOn(postRepository, 'findAll').mockImplementation(async () => []);
+      jest.spyOn(postRepository, 'findMany').mockImplementation(async () => []);
 
       const display = await displayPostsHandler.execute(
-        new DisplayPostsQuery(),
+        new DisplayPostsQuery(0, null),
       );
       expect(display.length).toEqual(0);
     });
