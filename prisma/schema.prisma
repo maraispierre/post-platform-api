@@ -10,7 +10,7 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Author {
+model User {
   email String  @unique
   password  String
   posts Post[]
@@ -19,6 +19,6 @@ model Author {
 model Post {
   id        Int      @default(autoincrement()) @id
   content   String
-  author    Author    @relation(fields: [authorId], references: [email])
+  author    User    @relation(fields: [authorId], references: [email])
   authorId  String
 }
