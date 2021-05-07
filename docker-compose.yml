@@ -5,5 +5,7 @@ services:
     image: post-platform-api:latest
     build: .
     container_name: post-platform-api-srv
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
     ports:
       - 3000:3000
